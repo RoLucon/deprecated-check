@@ -13,11 +13,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install Git
+        run: |
+          sudo apt-get update
+          sudo apt-get install git -y
+          git --version
+
       - name: Check for Deprecated Methods
         run: |
           deprecated_methods=$(grep -r -n '@available(*, deprecated' ./*.swift | cut -d':' -f1)
 
           for method in $deprecated_methods; do
-            print($method)
             git diff main $method
           done
