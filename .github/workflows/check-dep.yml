@@ -1,0 +1,22 @@
+name: Check Deprecated Methods
+
+on:
+  pull_request:
+    paths:
+      - '**/*.swift'
+
+jobs:
+  check-deprecated-methods:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check for Deprecated Methods
+        run: |
+          deprecated_methods=$(grep -r -n '@available(*, deprecated' ./*.swift | cut -d':' -f1)
+
+          for method in $deprecated_methods; do
+            print(git diff main $method)
+          done
