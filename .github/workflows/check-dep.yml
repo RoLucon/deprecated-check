@@ -18,9 +18,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install git -y
           git --version
-      - name: Show all diffs
-        run: |
-          git diff main
+    
       - name: Check for Deprecated Methods
         run: |
           deprecated_methods=$(grep -r -n 'deprecated' ./*.swift | cut -d':' -f1)
