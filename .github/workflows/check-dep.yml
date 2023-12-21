@@ -18,5 +18,6 @@ jobs:
           deprecated_methods=$(grep -r -n '@available(*, deprecated' ./*.swift | cut -d':' -f1)
 
           for method in $deprecated_methods; do
-            print(git diff main $method)
+            print($method)
+            git diff main $method
           done
